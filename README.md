@@ -6,3 +6,5 @@ hmu for custom phishing kits
 Docker/Podman
 Github
 etc
+BTC donations are appreciated and Rewarded
+bc1q5630wajelmcjtcg6quqrx8vauvy7tjpk4wfuf8
