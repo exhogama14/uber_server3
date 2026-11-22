@@ -2,3 +2,7 @@ Uber HTML strictly for phishing credit/debit card information with automatic clo
 
 I have and can make the best Phishing tools on the web
 hmu for custom phishing kits
+
+Docker/Podman
+Github
+etc
